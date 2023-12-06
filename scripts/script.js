@@ -1,48 +1,33 @@
-const themeButtons = document.querySelectorAll('.header__theme-menu-button');
+let buttons = document.querySelectorAll('.header__theme-menu-button');
 
-themeButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    themeButtons.forEach((btn) => {
-      btn.classList.remove('header__theme-menu-button_active');
-      btn.removeAttribute('disabled');
-    });
-    if (
-      [...button.classList].includes('header__theme-menu-button_type_light')
-    ) {
-      changeTheme('light');
-    } else if (
-      [...button.classList].includes('header__theme-menu-button_type_dark')
-    ) {
-      changeTheme('dark');
-    } else {
-      changeTheme('auto');
-    }
-    button.classList.add('header__theme-menu-button_active');
-    button.setAttribute('disabled', true);
-  });
-});
+let theme = localStorage.getItem('theme');
 
-function changeTheme(theme) {
-  document.body.className = 'page';
-  document.body.classList.add(`theme_${theme}`);
+if(!theme) {
+  theme = 'theme-day'; // или 'theme-neon'
   localStorage.setItem('theme', theme);
 }
 
-function initTheme() {
-  const theme = localStorage.getItem('theme');
-  if (theme) {
-    changeTheme(theme);
-    themeButtons.forEach((btn) => {
-      btn.classList.remove('header__theme-menu-button_active');
-      btn.removeAttribute('disabled');
-    });
-    document
-      .querySelector(`.header__theme-menu-button_type_${theme}`)
-      .classList.add('header__theme-menu-button_active');
-    document
-      .querySelector(`.header__theme-menu-button_type_${theme}`)
-      .setAttribute('disabled', true);
-  }
-}
+document.body.classList.add(theme);
 
-initTheme();
+// Получаем тему из localStorage
+
+
+buttons.forEach(button => {
+  button.addEventListener('click', function () {
+    document.body.classList.remove('theme-day', 'theme-neon', 'theme-auto');
+
+    // Добавляем новую тему и сохраняем ее в localStorage
+    if (this.classList.contains('header__theme-menu-button_type_light')) {
+      document.body.classList.add('theme-day');
+      localStorage.setItem('theme', 'theme-day');
+    } else if (this.classList.contains('header__theme-menu-button_type_dark')) {
+      document.body.classList.add('theme-neon');
+      localStorage.setItem('theme', 'theme-neon');
+    } 
+
+    buttons.forEach(button => {
+      button.classList.remove('header__theme-menu-button_active');
+    });
+    this.classList.add('header__theme-menu-button_active');
+  });
+});
