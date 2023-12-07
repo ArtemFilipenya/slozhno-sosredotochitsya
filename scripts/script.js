@@ -23,7 +23,7 @@ buttons.forEach(button => {
     } else if (this.classList.contains('header__theme-menu-button_type_dark')) {
       document.body.classList.add('theme-neon');
       localStorage.setItem('theme', 'theme-neon');
-    } 
+    }
 
     buttons.forEach(button => {
       button.classList.remove('header__theme-menu-button_active');
