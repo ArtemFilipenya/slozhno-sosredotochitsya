@@ -2,6 +2,14 @@
 
 .page {
   /* сохраните в разметке и стилях класс page. На его основе работает скрипт. */
+  color: var(--text-color);
+  font-family: var(--main-font, "IBM Plex mono", monospace);
+  font-size: var(--main-font-size);
+  line-height: 23.4px;
+  background-color: var(--page-background-color);
+  background-image: var(--page-background-image, url("../images/cover-image.png"));
+  background-position: center;
+  background-size: cover;
   background-attachment: fixed;
 }
 
@@ -22,6 +30,7 @@
   }
 }
 
+/* уголки */
 .decorated-zone {
   position: relative;
   z-index: 1;
@@ -37,34 +46,23 @@
 }
 
 .decorated-zone::before {
-  border-inline-end: 1px solid var(--color-black);
-  border-block-start: 1px solid var(--color-black);
+  border-inline-end: 1px solid var(--secondary-color);
+  border-block-start: 1px solid var(--secondary-color);
   inset-inline-end: clamp(10px, 0.0286rem + 2.5445vw, 20px);
   inset-block-start: clamp(10px, 0.0286rem + 2.5445vw, 20px);
 }
 
 .decorated-zone::after {
-  border-inline-start: 1px solid var(--color-black);
-  border-block-end: 1px solid var(--color-black);
+  border-inline-start: 1px solid var(--secondary-color);
+  border-block-end: 1px solid var(--secondary-color);
   inset-inline-start: clamp(10px, 0.0286rem + 2.5445vw, 20px);
   inset-block-end: clamp(10px, 0.0286rem + 2.5445vw, 20px);
 }
 
-.theme-neon .decorated-zone::before {
-  border-inline-end: 1px solid var(--accent-color);
-  border-block-start: 1px solid var(--accent-color);
-}
-
-.theme-neon .decorated-zone::after {
-  border-inline-start: 1px solid var(--accent-color);
-  border-block-end: 1px solid var(--accent-color);
-}
-
-
-.theme-neon .rec-decor {
+.rec-decor {
   position: absolute;
   z-index: -1;
-  visibility: var(--accent-color, visible);
+  visibility: var(--secondary-color, visible);
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -72,37 +70,31 @@
   inset-block-start: 20px;
 }
 
-.theme-neon .rec-decor::before {
+.theme_light .rec-decor {
+  display: none;
+}
+
+.rec-decor::before {
   content: "rec";
   text-transform: uppercase;
-  color: var(--accent-color);
+  color: var(--secondary-color);
   line-height: 24px;
 }
 
-.theme-neon .rec-decor::after {
+.rec-decor::after {
   content: "";
   display: inline-block;
   border-radius: 50%;
-  box-shadow: 0 0 4px 2px var(--accent-color);
-  background: var(--accent-color);
+  box-shadow: 0 0 4px 2px var(--secondary-color);
+  background: var(--secondary-color);
   inline-size: 9px;
   block-size: 9px;
 }
 
-/* Светлая тема */
-.theme-day {
-  background-color: var(--page-background-color);
-  color: var(--text-color);
-}
-
-/* Темная тема */
-.theme-neon {
-  background-color: var(  --page-background-color);
-  color: var(--accent-color);
-}
-
+/* хэдер */
 .header {
   margin-bottom: 60px;
+  min-height: 768px;
 }
 
 @media (max-width: 769px) {
@@ -115,46 +107,6 @@
   .header {
     min-height: 668px;
     margin-bottom: 40px;
-  }
-}
-
-/* Светлая тема */
-.theme-day .header {
-  position: relative;
-  min-height: 768px;
-  background: var(--page-background-image) no-repeat;
-  background-size: cover;
-}
-
-@media (max-width:769px) {
-  .theme-day .header {
-    min-height: 1024px;
-  }
-}
-
-@media(max-width:376px) {
-  .theme-day .header {
-    min-height: 668px;
-  }
-}
-
-/* Темная тема */
-.theme-neon .header {
-  position: relative;
-  min-height: 768px;
-  background: var(--page-background-image) no-repeat;
-  background-size: cover;
-}
-
-@media (max-width:769px) {
-  .theme-neon .header {
-    min-height: 1024px;
-  }
-}
-
-@media(max-width:376px) {
-  .theme-neon .header {
-    min-height: 668px;
   }
 }
 
@@ -179,7 +131,6 @@
   }
 }
 
-
 /* Удаление маркеров списка */
 .header__theme-menu-list {
   list-style: none;
@@ -190,7 +141,6 @@
   justify-content: flex-end;
   align-items: center;
   margin-top: 20px;
-  margin-left: 33px;
 }
 
 @media (max-width: 769px) {
@@ -208,82 +158,47 @@
 }
 
 /* кнопки */
-/* кнопки */
 .header__theme-menu-button {
   background-color: transparent;
   border: none;
   margin: 0;
   outline: none;
-  cursor: pointer;
   height: 26px;
   padding: 0px 13px;
-  font-size: var(--main-font-size);
   text-transform: lowercase;
-  font-family: var(--main-font);
-  font-weight: var(--main-font-style);
   line-height: 18px;
   display: flex;
   align-items: start;
+  color: var(--secondary-color);
 }
-
-.theme-day .header__theme-menu-button {
-  color: var(--color-black);
-}
-
-.theme-neon .header__theme-menu-button {
-  color: var(--color-neon-pink);
-}
-
-/* в макете в фокусе подчеркивается, а при наведении в рамке,
-но я исправил в соответствии с замечанием */
 
 .header__theme-menu-button:hover {
-  border: 1px solid; /* замените на нужный цвет рамки */
-}
-
-.theme-day .header__theme-menu-button:hover {
-  border: 1px solid var(--color-black);
-}
-
-.theme-neon .header__theme-menu-button:hover {
-  border: 1px solid var(--color-neon-pink);
+  border: 1px solid var(--color-transparent);
 }
 
 .header__theme-menu-button:focus {
   outline: none;
 }
 
-.header__theme-menu-button:active {
-  opacity: 0.5; /* замените на нужный уровень прозрачности */
-  /* pointer-events: none; */
-}
-
-/* Светлая тема */
-.theme-day .header__theme-menu-button {
-  color: var(--text-color);
-}
-
-.theme-day .header__theme-menu-button:hover {
-  border: 1px solid var(--color-black);
-}
-
-/* темная тема */
-.theme-neon .header__theme-menu-button {
-  color: var(--accent-color);
-}
-
-.theme-neon .header__theme-menu-button:hover {
-  border: 1px solid var(--accent-color);
-  height: 26px;
-  padding: 0px 13px;
+.header__theme-menu-button_active {
+  border: 1px solid var(--secondary-color);
 }
 
 .header__theme-menu-button_type_light {
   margin-right: 10px;
 }
 
+.header__theme-menu-button_type_auto {
+  margin-right: 10px;
+}
+
 @media (max-width: 769px) {
   .header__theme-menu-button_type_light {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .header__theme-menu-button_type_auto {
     margin-bottom: 10px;
     margin-right: 0;
   }
@@ -293,20 +208,7 @@
   .header__theme-menu-button_type_light {
     margin-right: 10px;
   }
-}
 
-.header__theme-menu-button_type_auto {
-  margin-right: 10px;
-}
-
-@media (max-width: 769px) {
-  .header__theme-menu-button_type_auto {
-    margin-bottom: 10px;
-    margin-right: 0;
-  }
-}
-
-@media(max-width: 376px) {
   .header__theme-menu-button_type_auto {
     margin-right: 10px;
   }
@@ -318,9 +220,8 @@
 
 /* заголовок */
 .header__title {
-  color: var(--color-pink);
-  text-shadow: 4px 4px 0px var(--color-neon-pink);
-  font-family: var(--main-font);
+  color: var( --color-brand);
+  text-shadow: 4px 4px 0px var(--neon-color);
   font-size: 157px;
   font-weight: var(--main-font-weight-bold);
   line-height: 82.5%;
@@ -344,31 +245,21 @@
   }
 }
 
-.theme-day .header__title {
-  color: var(--color-pink);
-  text-shadow: 4px 4px 0px var(--color-neon-pink);
-}
-
-.theme-neon .header__title {
-  color: var(--color-lilac);
-  text-shadow: 4px 4px 0px var(--accent-color);
-}
-
+/* текстовая иинформация хэдера */
 .header__text {
-  right: 20px;
-  font-family: var(--main-font);
-  font-size: var(--main-font-size);
-  font-style: var(--main-font-style);
   font-weight: var(--main-font-weight-bold);
   max-width: 491px;
-  margin-left: 510px;
+  margin-left: auto;
   margin-right: 20px;
+}
+
+.header__text p {
+  color: var(--color-dark);
 }
 
 @media (max-width: 769px) {
   .header__text {
     max-width: 364px;
-    margin-left: 380px;
   }
 }
 
@@ -379,30 +270,20 @@
   }
 }
 
-.theme-day .header__text {
-  color: var(--text-color);
-  background-color: var(--accent-color);
-}
-
-.theme-neon .header__text {
-  background-color: var(--accent-color);
-  color: var(--color-dark);
-}
-
 .title-decor {
   background-color: var(--accent-color);
-}
-
-.title-decor p {
   margin: 0;
   padding: 0;
   line-height: 23.4px;
+  color: var(--color-dark);
 }
 
 /* ссылка */
 .reference {
   text-decoration: none;
   position: relative;
+  color: var(--text-color);
+  text-shadow: 2px 2px 0px var(--accent-color);
 }
 
 .reference::after {
@@ -413,6 +294,7 @@
   height: 1px;
   width: 0;
   transition: width 0.3s ease;
+  background-color: var( --secondary-color);
 }
 
 .reference:hover::after {
@@ -428,36 +310,11 @@
   bottom: -2px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  border: 1px solid var(--accent-color);
 }
 
 .reference:focus::before {
   opacity: 1;
-}
-
-.theme-day .reference {
-  color: var(--text-color);
-  text-shadow: 2px 2px 0px var(--accent-color);
-}
-
-.theme-day .reference::after {
-  background-color: var(--color-black);
-}
-
-.theme-day .reference::before {
-  border: 1px solid var(--accent-color);
-}
-
-.theme-neon .reference {
-  color: var(--text-color);
-  text-shadow: 2px 2px 0px var(--accent-color);
-}
-
-.theme-neon .reference::after {
-  background-color: var(--text-color);
-}
-
-.theme-neon .reference::before {
-  border: 1px solid var(--text-color);
 }
 
 /* первая секция */
@@ -472,6 +329,7 @@
 .special-section__large-block {
   grid-row-start: 1;
   grid-row-end: 5;
+  color: var(--secondary-color);
 }
 
 @media (max-width: 769px) {
@@ -490,13 +348,14 @@
 }
 
 .special-section__title {
-  font-family: var(--main-font);
+  font-family: var(--main-font, "IBM Plex mono", monospace);
   font-size: var(--main-font-size);
   font-style: var(--main-font-style);
   font-weight: var(--main-font-weight-bold);
   line-height: 23.4px;
   padding: 0;
   margin: 0;
+  color: var(--secondary-color);
 }
 
 @media(max-width: 376px) {
@@ -505,64 +364,18 @@
   }
 }
 
-.theme-day .special-section__large-block .special-section__title {
-  color: var(--text-color);
-}
-
-.theme-neon .special-section__large-block .special-section__title {
-  color: var(--accent-color);
-}
-
-.title-decor {
-  background-color: var(--accent-color);
-  color: var(--text-color);
-}
-
-.theme-neon .title-decor {
+.block-title {
   color: var(--color-dark);
 }
 
-.right-block__text {
-  font-family: var(--main-font);
-  font-size: var(--main-font-size);
-  font-style: var(--main-font-style);
-  font-weight: var(--main-font-weight);
+.block__text {
   line-height: 23.4px;
   margin: 0;
   padding: 0;
-}
-
-.theme-day .right-block__text {
   color: var(--text-color);
 }
 
-.theme-neon .right-block__text {
-  color: var(--text-color);
-}
-
-.theme-neon .special-section__title {
-  color: var(--color-dark);
-}
-
-.additional-right-block__text {
-  font-family: var(--main-font);
-  font-size: var(--main-font-size);
-  font-style: var(--main-font-style);
-  font-weight: var(--main-font-weight);
-  line-height: 23.4px;
-  margin: 0;
-  padding: 0;
-}
-
-.theme-day .additional-right-block__text {
-  color: var(--text-color);
-}
-
-.theme-neon .additional-right-block__text {
-  color: var(--text-color);
-}
 /* вторая секция */
-
 .attention-section {
   margin-bottom: 80px;
 }
@@ -573,29 +386,18 @@
   }
 }
 
-
-.attention-section__title-content {
-  font-family: var(--main-font);
+.attention-section__title {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  font-family: var(--main-font, "IBM Plex mono", monospace);
   font-size: var(--main-font-size);
   font-style: var(--main-font-style);
   font-weight: var(--main-font-weight-bold);
   line-height: 23.4px;
   margin: 0;
   padding: 0;
-}
-
-.theme-day .attention-section__title-content {
-  color: var(--text-color);
-}
-
-.theme-neon .attention-section__title-content {
-  color: var(--accent-color);
-}
-
-.attention-section__title {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
   margin-bottom: 20px;
+  color: var(--secondary-color);
 }
 
 @media (max-width: 769px) {
@@ -627,7 +429,7 @@
 }
 
 .attention__columns-title {
-  font-family: var(--main-font);
+  font-family: var(--main-font, "IBM Plex mono", monospace);
   font-size: var(--main-font-size);
   font-style: var(--main-font-style);
   font-weight: var(--main-font-weight-bold);
@@ -635,52 +437,27 @@
   margin: 0;
   padding: 0;
   margin-bottom: 10px;
-}
-
-.theme-day .attention__columns-title {
-  color: var(--text-color);
-}
-
-.theme-neon .attention__columns-title {
   color: var(--color-dark);
 }
 
-.attention__columns-text {
-  font-family: var(--main-font);
-  font-size: var(--main-font-size);
-  font-style: var(--main-font-style);
-  font-weight: var(--main-font-weight);
-  line-height: 23.4px; /* 130% */
-  margin: 0;
-  padding: 0;
-}
-
-.theme-day .attention__columns-text {
-  color: var(--text-color);
-}
-
-.theme-neon .attention__columns-text {
-  color: var(--text-color);
-}
-
 /* третья секция */
-.triad-section {
+.concentration-section {
   margin-bottom: 60px;
 }
 
 @media (max-width: 376px) {
-  .triad-section {
+  .concentration-section {
     margin-bottom: 45px;
   }
 }
 
-.triad-section__container {
+.concentration-section__container {
   display: grid;
   grid-template-columns: 1fr 2fr;
 }
 
-.triad-section__title {
-  font-family: var(--main-font);
+.concentration-section__title {
+  font-family: var(--main-font, "IBM Plex mono", monospace);
   font-size: var(--main-font-size);
   font-style: var(--main-font-style);
   font-weight: var(--main-font-weight-bold);
@@ -688,106 +465,53 @@
   margin: 0;
   padding: 0;
   margin-bottom: 20px;
-}
-
-.theme-day .triad-section__title {
-  color: var(--text-color);
-}
-
-.theme-neon .triad-section__title {
-  color: var(--color-dark);
+  color: var(--secondary-color);
 }
 
 @media (max-width: 769px) {
-  .triad-section__right-content {
+  .concentration-section__content {
     margin-left: 15px;
   }
 }
 
 @media (max-width: 376px) {
-  .triad-section__container {
+  .concentration-section__container {
     grid-template-columns: 1fr;
   }
-  .triad-section__right-content {
+  .concentration-section__content {
     margin: 0;
   }
 }
 
-.theme-day .triad-section__right-title {
-  background-color: var(--accent-color);
+.concentration-section__intro-title {
+  color: var(--color-dark);
 }
 
-.theme-neon .triad-section__left-title {
-  color: var(--accent-color);
-}
-
-.triad-section__subtitle {
-  font-family: var(--main-font);
-  font-size: var(--main-font-size);
-  font-style: var(--main-font-style);
+.concentration-section__subtitle {
   font-weight: var(--main-font-weight);
-  line-height: 23.4px; /* 130% */
   margin: 0;
   padding: 0;
   margin-bottom: 10px;
 }
 
-.theme-day .triad-section__right-subtitle {
-  background-color: var(--accent-color);
-}
-
-.theme-day .triad-section__subtitle {
-  color: var(--text-color);
-}
-
-.theme-neon .triad-section__right-subtitle {
-  background-color: var(--accent-color);
-}
-
-.theme-neon .triad-section__subtitle {
-  color: var(--color-dark);
-}
-
-.triad-section__right-content__text {
-  font-family: var(--main-font);
-  font-size: var(--main-font-size);
-  font-style: var(--main-font-style);
-  font-weight: var(--main-font-weight);
-  line-height: 23.4px; /* 130% */
-  margin: 0;
-  padding: 0;
+.concentration-section__content__text {
   margin-bottom: 20px;
 }
 
 @media (max-width: 769px) {
-  .triad-section__right-content__text {
+  .concentration-section__content__text {
     max-width: 472px;
   }
 }
 
 @media (max-width: 376px) {
-  .triad-section__right-content__text {
+  .concentration-section__content__text {
     max-width: 355px;
   }
-  .triad-section__read-text {
-    margin-bottom: 0px;
+
+  .concentration-section__content__text:last-child {
+    margin-bottom: 0;
   }
-}
-
-.theme-day .triad-section__right-content__text {
-  color: var(--text-color);
-}
-
-.theme-neon .triad-section__right-content__text {
-  color: var(--text-color);
-}
-
-.theme-day .triad-section__right-title {
-  background-color: var(--accent-color);
-}
-
-.theme-neon .triad-section__right-title {
-  background-color: var(--accent-color);
 }
 
 /* четвертая секция */
@@ -802,10 +526,10 @@
 }
 
 .picture-title {
-  font-family: var(--main-font);
+  font-family: var(--main-font, "IBM Plex mono", monospace);
   font-size: var(--main-font-size);
   font-style: var(--main-font-style);
-  font-weight: var(--main-font-weight);
+  font-weight: var(--main-font-weight-bold);
   line-height: 23.4px; /* 130% */
   margin: 0;
   padding: 0;
@@ -874,9 +598,6 @@
   .picture-section__image-container {
     display: flex;
     flex-direction: column;
-  }
-
-  .picture-section__image-container {
     gap: 10px;
     margin-top: 10px;
   }
@@ -903,13 +624,15 @@
 }
 
 .footer__title {
-  font-family: var(--main-font);
+  font-family: var(--main-font, "IBM Plex mono", monospace);
   font-size: 157px;
   font-style: var(--main-font-style);
   font-weight: var(--main-font-weight-bold);
   line-height: 82.5%;
   text-align: center;
   margin-top: 40px;
+  color: var(--color-brand);
+  text-shadow: 2px 2px 0px var(--neon-color);
 }
 
 @media (max-width: 769px) {
@@ -922,14 +645,4 @@
   .footer__title {
     font-size: 116px;
   }
-}
-
-.theme-day .footer__title {
-  color: var(--color-pink);
-  text-shadow: 2px 2px 0px var(--color-neon-pink);
-}
-
-.theme-neon .footer__title {
-  color: var(--color-lilac);
-  text-shadow: 2px 2px 0px var(--accent-color);
 }
